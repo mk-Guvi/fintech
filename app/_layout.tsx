@@ -1,6 +1,6 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { Link, router, Stack } from "expo-router";
+import { Link, router, Stack, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -57,6 +57,7 @@ export function InitialLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
+  const segments = useSegments(); // This identifies the current location within the app
   const { isLoaded, isSignedIn } = useAuth();
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -67,9 +68,13 @@ export function InitialLayout() {
   useEffect(() => {
     if (!isLoaded) return;
 
-   if(isSignedIn){
-    console.log("User SignIn")
-   }
+    const inAuthGroup = segments[0] === "(authenticated)";
+
+    if (isSignedIn && !inAuthGroup) {
+      router.replace("/(authenticated)/(tabs)/home");
+    } else if (!isSignedIn) {
+      router.replace("/");
+    }
   }, [isSignedIn]);
   if (!loaded || !isLoaded) {
     return (
@@ -143,6 +148,7 @@ function RootLayoutNav() {
         name="help"
         options={{ title: "Help", presentation: "modal" }}
       />
+      <Stack.Screen name="(authenticated)/(tabs)" options={{ headerShown: false }} />
 
       {/*<Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
     </Stack>
