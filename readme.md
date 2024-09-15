@@ -11,6 +11,8 @@
 - npm i react-native-confirmation-code-field
 - npm i react-native-ios-context-menu react-native-ios-utilities
 - npm i zeego
+- npm i zustand
+- npm i react-native-mmkv // for localStorage
 ## DOCS
 - https://docs.swmansion.com/react-native-gesture-handler/docs/
 - https://docs.swmansion.com/react-native-reanimated/
