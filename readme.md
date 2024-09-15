@@ -13,6 +13,7 @@
 - npm i zeego
 - npm i zustand
 - npm i react-native-mmkv // for localStorage
+- npx expo install expo-blur
 ## DOCS
 - https://docs.swmansion.com/react-native-gesture-handler/docs/
 - https://docs.swmansion.com/react-native-reanimated/

@@ -6,9 +6,11 @@ import { defaultStyles } from '@/constants/Styles';
 import { useBalanceStore } from '@/store/balanceStore';
 import { Ionicons } from '@expo/vector-icons';
 import { View, Text, ScrollView, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import { useHeaderHeight } from '@react-navigation/elements';
 
 const Page = () => {
   const { balance, runTransaction, transactions, clearTransactions } = useBalanceStore();
+  const headerHeight = useHeaderHeight();
 
   const onAddMoney = () => {
     runTransaction({
@@ -22,7 +24,9 @@ const Page = () => {
   return (
     <ScrollView
       style={{ backgroundColor: Colors.background }}
-    >
+      contentContainerStyle={{
+        paddingTop: headerHeight,
+      }}>
       <View style={styles.account}>
         <View style={styles.row}>
           <Text style={styles.balance}>{balance()}</Text>
@@ -45,7 +49,9 @@ const Page = () => {
       </View>
 
       <Text style={defaultStyles.sectionHeader}>Transactions</Text>
-      <ScrollView style={{maxHeight:500}}>
+      <ScrollView style={{
+        maxHeight:500
+      }}>
       <View style={styles.transactions}>
         {transactions.length === 0 && (
           <Text style={{ padding: 14, color: Colors.gray }}>No transactions yet</Text>
@@ -69,7 +75,6 @@ const Page = () => {
               </Text>
             </View>
             <Text>{transaction.amount}€</Text>
-            
           </View>
         ))}
       </View>
