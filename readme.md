@@ -14,7 +14,24 @@
 - npm i zustand
 - npm i react-native-mmkv // for localStorage
 - npx expo install expo-blur
+- npm i @tanstack/react-query
+
 ## DOCS
 - https://docs.swmansion.com/react-native-gesture-handler/docs/
 - https://docs.swmansion.com/react-native-reanimated/
 - https://github.com/wcandillon/can-it-be-done-in-react-native
+- https://coinmarketcap.com/settings/account-security/ 
+
+## NOTES 
+
+- To create APIs similar to Next.js, configure the web output to be served as a server by adding the following configuration to your project:
+
+    ```json
+    "web": {
+    "bundler": "metro",
+    "output": "server",
+    "favicon": "./assets/images/favicon.png"
+    }
+    ```
+
+    This setup enables server-side output using the Metro bundler. Additionally, make sure to add the origin in the plugins, as these are not bundled with React Native by default.

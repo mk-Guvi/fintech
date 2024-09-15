@@ -15,7 +15,10 @@ import Colors from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Loader from "@/components/Loader";
 
+const queryCient = new QueryClient();
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -77,11 +80,7 @@ export function InitialLayout() {
     }
   }, [isSignedIn]);
   if (!loaded || !isLoaded) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color={Colors.primary} />
-      </View>
-    );
+    return <Loader isLoading />;
   }
   return <RootLayoutNav />;
 }
@@ -148,9 +147,38 @@ function RootLayoutNav() {
         name="help"
         options={{ title: "Help", presentation: "modal" }}
       />
-      <Stack.Screen name="(authenticated)/(tabs)" options={{ headerShown: false ,}} />
+      <Stack.Screen
+        name="(authenticated)/(tabs)"
+        options={{ headerShown: false }}
+      />
 
-      {/*<Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
+      <Stack.Screen
+        name="(authenticated)/crypto/[id]"
+        options={{
+          title: "",
+          headerLeft: () => (
+            <TouchableOpacity onPress={router.back}>
+              <Ionicons name="arrow-back" size={34} color={Colors.dark} />
+            </TouchableOpacity>
+          ),
+          headerLargeTitle: true,
+          headerTransparent: true,
+          headerRight: () => (
+            <View style={{ flexDirection: "row", gap: 10 }}>
+              <TouchableOpacity>
+                <Ionicons
+                  name="notifications-outline"
+                  color={Colors.dark}
+                  size={30}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Ionicons name="star-outline" color={Colors.dark} size={30} />
+              </TouchableOpacity>
+            </View>
+          ),
+        }}
+      />
     </Stack>
   );
 }
@@ -161,14 +189,16 @@ const RootLayout = () => {
       publishableKey={CLERK_PUBLISHABLE_KEY!}
       tokenCache={tokenCache}
     >
-      <GestureHandlerRootView
-        style={{
-          flex: 1,
-        }}
-      >
-        <StatusBar barStyle={"light-content"} />
-        <InitialLayout />
-      </GestureHandlerRootView>
+      <QueryClientProvider client={queryCient}>
+        <GestureHandlerRootView
+          style={{
+            flex: 1,
+          }}
+        >
+          <StatusBar barStyle={"light-content"} />
+          <InitialLayout />
+        </GestureHandlerRootView>
+      </QueryClientProvider>
     </ClerkProvider>
   );
 };
