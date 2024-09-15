@@ -1,7 +1,8 @@
-import Colors from "@/constants/Colors";
-import { defaultStyles } from "@/constants/Styles";
-import { Link, useRouter } from "expo-router";
-import { useState } from "react";
+import Colors from '@/constants/Colors';
+import { defaultStyles } from '@/constants/Styles';
+import { useSignUp } from '@clerk/clerk-expo';
+import { Link, useRouter } from 'expo-router';
+import { useState } from 'react';
 import {
   View,
   Text,
@@ -10,20 +11,34 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-} from "react-native";
-const SignupPage = () => {
-  const [countryCode, setCountryCode] = useState("+49");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const keyboardVerticalOffset = Platform.OS === "ios" ? 80 : 0;
+} from 'react-native';
+const Page = () => {
+  const [countryCode, setCountryCode] = useState('+49');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? 80 : 0;
+  const router = useRouter();
+  const { signUp } = useSignUp();
 
-  const onSignup = async () => {};
+  const onSignup = async () => {
+    const fullPhoneNumber = `${countryCode}${phoneNumber}`;
+
+    try {
+      await signUp!.create({
+        phoneNumber: fullPhoneNumber,
+      });
+      signUp!.preparePhoneNumberVerification();
+
+      router.push({ pathname: '/verify/[phone]', params: { phone: fullPhoneNumber } });
+    } catch (error) {
+      console.error('Error signing up:', error);
+    }
+  };
 
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior="padding"
-      keyboardVerticalOffset={keyboardVerticalOffset}
-    >
+      keyboardVerticalOffset={keyboardVerticalOffset}>
       <View style={defaultStyles.container}>
         <Text style={defaultStyles.header}>Let's get started!</Text>
         <Text style={defaultStyles.descriptionText}>
@@ -34,8 +49,8 @@ const SignupPage = () => {
             style={styles.input}
             placeholder="Country code"
             placeholderTextColor={Colors.gray}
-            onChangeText={setCountryCode}
             value={countryCode}
+            onChangeText={setCountryCode}
           />
           <TextInput
             style={[styles.input, { flex: 1 }]}
@@ -47,11 +62,9 @@ const SignupPage = () => {
           />
         </View>
 
-        <Link href={"/login"} replace asChild>
+        <Link href={'/login'} replace asChild>
           <TouchableOpacity>
-            <Text style={defaultStyles.textLink}>
-              Already have an account? Log in
-            </Text>
+            <Text style={defaultStyles.textLink}>Already have an account? Log in</Text>
           </TouchableOpacity>
         </Link>
 
@@ -60,11 +73,10 @@ const SignupPage = () => {
         <TouchableOpacity
           style={[
             defaultStyles.pillButton,
-            phoneNumber !== "" ? styles.enabled : styles.disabled,
+            phoneNumber !== '' ? styles.enabled : styles.disabled,
             { marginBottom: 20 },
           ]}
-          onPress={onSignup}
-        >
+          onPress={onSignup}>
           <Text style={defaultStyles.buttonText}>Sign up</Text>
         </TouchableOpacity>
       </View>
@@ -74,7 +86,7 @@ const SignupPage = () => {
 const styles = StyleSheet.create({
   inputContainer: {
     marginVertical: 40,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   input: {
     backgroundColor: Colors.lightGray,
@@ -90,4 +102,4 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primaryMuted,
   },
 });
-export default SignupPage;
+export default Page;
