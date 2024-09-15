@@ -7,15 +7,6 @@ const Layout = () => {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
-        tabBarStyle: {
-          backgroundColor: 'transparent',
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          elevation: 0,
-          borderTopWidth: 0,
-        },
       }}>
       <Tabs.Screen
         name="home"
@@ -24,8 +15,6 @@ const Layout = () => {
           tabBarIcon: ({ size, color }) => (
             <FontAwesome name="registered" size={size} color={color} />
           ),
-     
-          headerTransparent: true,
         }}
       />
       <Tabs.Screen
@@ -51,8 +40,6 @@ const Layout = () => {
         options={{
           title: 'Crypto',
           tabBarIcon: ({ size, color }) => <FontAwesome name="bitcoin" size={size} color={color} />,
-
-          headerTransparent: true,
         }}
       />
       <Tabs.Screen

@@ -9,6 +9,8 @@
 - npm install @clerk/clerk-expo
 - npx expo install expo-secure-store //this will store the tokens in the device securely.
 - npm i react-native-confirmation-code-field
+- npm i react-native-ios-context-menu react-native-ios-utilities
+- npm i zeego
 ## DOCS
 - https://docs.swmansion.com/react-native-gesture-handler/docs/
 - https://docs.swmansion.com/react-native-reanimated/
