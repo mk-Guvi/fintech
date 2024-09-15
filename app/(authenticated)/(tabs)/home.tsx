@@ -1,5 +1,6 @@
 import Dropdown from '@/components/Dropdown';
 import RoundBtn from '@/components/RoundBtn';
+import WidgetList from '@/components/SortableList/WidgetList';
 import Colors from '@/constants/Colors';
 import { defaultStyles } from '@/constants/Styles';
 import { useBalanceStore } from '@/store/balanceStore';
@@ -44,6 +45,7 @@ const Page = () => {
       </View>
 
       <Text style={defaultStyles.sectionHeader}>Transactions</Text>
+      <ScrollView style={{maxHeight:500}}>
       <View style={styles.transactions}>
         {transactions.length === 0 && (
           <Text style={{ padding: 14, color: Colors.gray }}>No transactions yet</Text>
@@ -67,10 +69,13 @@ const Page = () => {
               </Text>
             </View>
             <Text>{transaction.amount}€</Text>
+            
           </View>
         ))}
       </View>
-  
+      </ScrollView>
+      <Text style={defaultStyles.sectionHeader}>Widgets</Text>
+      <WidgetList />
     </ScrollView>
   );
 };

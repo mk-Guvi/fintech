@@ -16,3 +16,4 @@
 ## DOCS
 - https://docs.swmansion.com/react-native-gesture-handler/docs/
 - https://docs.swmansion.com/react-native-reanimated/
+- https://github.com/wcandillon/can-it-be-done-in-react-native
