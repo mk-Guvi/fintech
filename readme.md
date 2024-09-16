@@ -19,6 +19,9 @@
 - npx expo install expo-haptics
 - npm i date-func
 - npx expo install expo-local-authentication
+- npx expo install expo-image-picker
+- npx expo install expo-dynamic-app-icon
+- npx expo prebuild --clean //After add the dynamic app icon in app.json.
 
 ## DOCS
 - https://docs.swmansion.com/react-native-gesture-handler/docs/

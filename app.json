@@ -12,6 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mk127.fintech"
@@ -32,15 +33,31 @@
       [
         "expo-router",
         {
-          "origin": "http://localhost:3000"
+          "origin": "https://galaxies.dev"
         }
       ],
-      "expo-asset",
       "expo-secure-store",
       [
         "expo-local-authentication",
         {
           "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
+        }
+      ],
+      [
+        "expo-dynamic-app-icon",
+        {
+          "default": {
+            "image": "./assets/images/icon.png",
+            "prerendered": true
+          },
+          "dark": {
+            "image": "./assets/images/icon-dark.png",
+            "prerendered": true
+          },
+          "vivid": {
+            "image": "./assets/images/icon-vivid.png",
+            "prerendered": true
+          }
         }
       ]
     ],
