@@ -1,25 +1,23 @@
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, StyleProp, ViewStyle, View } from "react-native";
 import React from "react";
 import { BlurView } from "expo-blur";
-import Colors from "@/constants/Colors"; // Assuming you have a custom Colors file.
+import Colors from "@/constants/Colors";
 
-const Loader = ({ isLoading}: { isLoading: boolean }) => {
+const Loader = ({ isLoading, style }: { isLoading: boolean; style?: StyleProp<ViewStyle> }) => {
   return isLoading ? (
-    <BlurView
-      intensity={80}
-      tint={"extraLight"}
-      style={{
-        position: "absolute", 
-        flex:1,
-        height:"100%",
-        width:"100%",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 50, 
-      }}
-    >
-      <ActivityIndicator size="large" color={Colors.primary} />
-    </BlurView>
+    <View style={[{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 50 }, style]}>
+      <BlurView
+        intensity={80}
+        tint="extraLight"
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </BlurView>
+    </View>
   ) : null;
 };
 

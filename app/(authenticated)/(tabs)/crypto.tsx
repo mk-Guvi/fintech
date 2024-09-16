@@ -11,7 +11,6 @@ import Loader from "@/components/Loader";
 
 const ITEMS_PER_PAGE = 20;
 
-
 const fetchCurrencies = async ({ pageParam = 1 }): Promise<any> => {
   const response = await fetch(
     `/api/listings?page=${pageParam}&limit=${ITEMS_PER_PAGE}`
@@ -37,7 +36,9 @@ const CryptoPage = () => {
 
   const flatListData = currenciesData?.pages.flatMap((page) => page) || [];
 
-  const ids = flatListData.map((currency: Currency) => `${currency.id}`).join(",");
+  const ids = flatListData
+    .map((currency: Currency) => `${currency.id}`)
+    .join(",");
 
   const { data: infoData, isLoading: isLoadingInfo } = useQuery({
     queryKey: ["info", ids],
@@ -106,16 +107,20 @@ const CryptoPage = () => {
       }}
     >
       <Text style={defaultStyles.sectionHeader}>Latest Crypto</Text>
+      
+      <Loader isLoading={isLoadingCurrencies || isLoadingInfo} />
+      
       <FlatList
         data={flatListData}
         renderItem={renderItem}
         keyExtractor={(item) => `${item.id}`}
         onEndReached={() => hasNextPage && fetchNextPage()}
         onEndReachedThreshold={0.5}
-   
+        ListFooterComponent={() =>
+          isFetchingNextPage ? <Loader isLoading /> : null
+        }
         contentContainerStyle={defaultStyles.block}
       />
-      {(isLoadingCurrencies || isLoadingInfo) && <Loader isLoading />}
     </View>
   );
 };

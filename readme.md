@@ -15,6 +15,9 @@
 - npm i react-native-mmkv // for localStorage
 - npx expo install expo-blur
 - npm i @tanstack/react-query
+- npm i @shopify/react-native-skia victory-native
+- npx expo install expo-haptics
+- npm i date-func
 
 ## DOCS
 - https://docs.swmansion.com/react-native-gesture-handler/docs/
