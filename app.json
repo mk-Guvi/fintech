@@ -33,7 +33,7 @@
       [
         "expo-router",
         {
-          "origin": "https://fintech-hazel.vercel.app"
+          "origin": "https://fintech-nu-mauve.vercel.app"
         }
       ],
       "expo-secure-store",

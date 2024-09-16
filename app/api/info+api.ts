@@ -1,4 +1,4 @@
-const API_KEY = process.env.CRYPTO_API_KEY;
+const API_KEY = process.env.NEXT_CRYPTO_API_KEY;
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
