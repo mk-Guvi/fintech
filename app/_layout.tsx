@@ -17,6 +17,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Loader from "@/components/Loader";
+import { UserInactivityProvider } from "@/context/UserInactivity";
 
 const queryCient = new QueryClient();
 export {
@@ -179,6 +180,10 @@ function RootLayoutNav() {
           ),
         }}
       />
+      <Stack.Screen
+        name="(authenticated)/(modals)/lock"
+        options={{ headerShown: false, animation: "none" }}
+      />
     </Stack>
   );
 }
@@ -195,8 +200,10 @@ const RootLayout = () => {
             flex: 1,
           }}
         >
-          <StatusBar barStyle={"light-content"} />
-          <InitialLayout />
+          <UserInactivityProvider>
+            <StatusBar barStyle={"light-content"} />
+            <InitialLayout />
+          </UserInactivityProvider>
         </GestureHandlerRootView>
       </QueryClientProvider>
     </ClerkProvider>
