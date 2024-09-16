@@ -2,16 +2,30 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
+    "baseUrl": ".", // This allows for absolute imports based on the root directory
     "paths": {
-      "@/*": [
-        "./*"
-      ]
-    }
+      "@/*": ["./*"] // This allows for aliasing with "@/..." for importing from the root
+    },
+    "esModuleInterop": true, // Ensure compatibility with CommonJS modules
+    "skipLibCheck": true, // Skips type checks on declaration files (.d.ts)
+    "forceConsistentCasingInFileNames": true, // Ensures consistent casing for imports
+    "target": "ESNext", // Set to a modern JavaScript target
+    "module": "esnext", // For modern JavaScript modules
+    "moduleResolution": "node", // Module resolution compatible with Node.js and modern tools
+    "jsx": "react", // JSX support for React
+    "lib": ["dom", "dom.iterable", "esnext"], // Provides type definitions for the web and latest ECMAScript
+    "allowSyntheticDefaultImports": true // Allow default imports from modules without default exports
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
+    ".expo/types/**/*.ts", // Ensure Expo-specific types are included
+    "expo-env.d.ts" // Include any custom Expo environment types
+  ],
+  "exclude": [
+    "node_modules", // Exclude dependencies to avoid unnecessary type checking
+    "dist", // Exclude build output directory to avoid redundant checks
+    "web-build", // Exclude Expo web build directory
+    ".expo" // Exclude Expo-related configuration files
   ]
 }
