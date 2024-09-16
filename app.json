@@ -33,7 +33,7 @@
       [
         "expo-router",
         {
-          "origin": "https://galaxies.dev"
+          "origin": "https://fintech-hazel.vercel.app"
         }
       ],
       "expo-secure-store",
