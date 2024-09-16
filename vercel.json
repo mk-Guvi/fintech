@@ -1,6 +1,6 @@
 {
-    "buildCommand": "expo export -p web",
-    "outputDirectory": "dist/client",
+    "buildCommand": "expo build:web && tsc -p tsconfig.server.json",
+    "outputDirectory": "web-build",
     "functions": {
       "api/index.ts": {
         "runtime": "@vercel/node@3.0.11",
@@ -9,8 +9,12 @@
     },
     "rewrites": [
       {
-        "source": "/(.*)",
+        "source": "/api/(.*)",
         "destination": "/api/index.ts"
+      },
+      {
+        "source": "/(.*)",
+        "destination": "/index.html"
       }
     ]
   }
